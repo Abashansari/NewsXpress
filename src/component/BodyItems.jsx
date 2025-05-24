@@ -14,6 +14,7 @@ export default class BodyItems extends Component {
                             <p className="card-text">{description}</p>
                             <a href={newsUrl} className="btn btn-sm btn-primary">Read More</a>
                         </div>
+
                     </div>
 
                   

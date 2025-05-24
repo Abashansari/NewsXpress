@@ -5,42 +5,71 @@ export default class Body extends Component {
   constructor() {
     super();
     this.state = {
-      article_id: [], // Should initialize as an empty array, not `this.article_id`
-      loading: false
+      articles: [], 
+      // loading: false,
+      page: 1
     };
   }
 
   async componentDidMount() {
-    try {
-      const response = await fetch(
-        'https://newsdata.io/api/1/latest?apikey=pub_ec91e55dc2634650a3bd6c35444f38c0&q=india%20latest%20news&size=10'
-      );
-      const data = await response.json();
-      this.setState({ article_id: data.results }); // Assuming the API returns results under `data.results`
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
+    let url = await fetch('https://newsapi.org/v2/everything?q=apple&from=2025-05-22&to=2025-05-22&sortBy=popularity&apiKey=f02a88e04540436a93a6af8d1963aa35&pageSize=20');
+    let data = await url.json();
+    this.setState({ articles: data.articles });
+  }
+
+  previous = async () => {
+    let url = await fetch(`https://newsapi.org/v2/everything?q=apple&from=2025-05-22&to=2025-05-22&sortBy=popularity&apiKey=f02a88e04540436a93a6af8d1963aa35&page=${this.state.page - 1}&pageSize=20`);
+    let data = await url.json();
+    this.setState({
+      page: this.state.page - 1,
+      articles: data.articles
+    });
+  }
+
+  next = async () => {
+    let url = await fetch(`https://newsapi.org/v2/everything?q=apple&from=2025-05-22&to=2025-05-22&sortBy=popularity&apiKey=f02a88e04540436a93a6af8d1963aa35&page=${this.state.page + 1}&pageSize=20`);
+    let data = await url.json();
+    this.setState({
+      page: this.state.page + 1,
+      articles: data.articles
+    });
   }
 
   render() {
-    console.log('render');
     return (
       <div className="container my-3">
         <h2>Fast, dynamic news delivery powered by - NewsXpress</h2>
         <div className="row">
-          {this.state.article_id.map((element) => {
+          {this.state.articles.map((element) => {
             return (
-              <div className="col-md-4" key={element.source_url}>
+              <div className="col-md-4" key={element.url}>
                 <BodyItems
-                  title={element.title ? element.title : "" }
+                  title={element.title ? element.title : ""}
                   description={element.description ? element.description : ""}
-                  imgUrl={element.image_url ? element.image_url : ""}
-                  newsUrl={element.source_url ? element.source_url: "" }
+                  imgUrl={element.urlToImage ? element.urlToImage : ""}
+                  newsUrl={element.url ? element.url : ""}
                 />
               </div>
             );
           })}
         </div>
+        <div className='d-flex justify-content-between'>
+          <button 
+            disabled={this.state.page <= 1} 
+            type="button" 
+            className="btn btn-dark" 
+            onClick={this.previous}
+          >
+            &larr; Previous
+          </button>
+          <button 
+            type="button" 
+            className="btn btn-dark" 
+            onClick={this.next}
+          >
+            Next &rarr;
+          </button>
+        </div>     
       </div>
     );
   }
