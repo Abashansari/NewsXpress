@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { differenceInDays, formatDistanceToNow } from 'date-fns';
 
-export default class NewsItems extends Component {
-    render() {
-        let { title, description, imgUrl, newsUrl, author, date } = this.props
+export default function NewsItems(props){
+  
+        let { title, description, imgUrl, newsUrl, author, date } = props
 
         const formatPublishedDate = (publishedDate) => {
             const parsedDate = new Date(publishedDate);
             const diffDays = differenceInDays(new Date(), parsedDate);
         
             if (diffDays === 1) {
-              return "Yesterday";
+              return "1 day ago";
             } else {
               return formatDistanceToNow(parsedDate, { addSuffix: true });
             }
@@ -35,4 +35,3 @@ export default class NewsItems extends Component {
             </>
         )
     }
-}
