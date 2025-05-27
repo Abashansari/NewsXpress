@@ -6,7 +6,7 @@ export default function Navbar (){
 
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary ">
           <div className="container-fluid">
 
             <Link className="navbar-brand" to="">NewsXpress</Link>
@@ -30,6 +30,14 @@ export default function Navbar (){
               </ul>
             </div>
           </div>
+          <div className="navbar-end">
+      <div className="navbar-item">
+        <div className="buttons">
+          <a className="button is-dark"><strong>Register</strong></a>
+          <a className="button is-light">Sign in</a>
+        </div>
+        </div>
+    </div>
         </nav>
       </>
     )

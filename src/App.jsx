@@ -8,7 +8,7 @@ import {
   Route
 } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-// import Footer from './component/Footer';
+import Footer from './component/Footer';
 
 function App() {
   const apiKey = import.meta.env.VITE_API_KEY;
@@ -36,7 +36,7 @@ function App() {
           <Route path="/technology" element={<News setProgress={setProgress} apiKey={apiKey} key="technology" pageSize={9} country="us" category="technology" />} />
         </Routes>
       </Router>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

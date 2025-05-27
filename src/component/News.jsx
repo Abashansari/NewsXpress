@@ -18,6 +18,7 @@ export default function News({ country, category, apiKey, pageSize, setProgress 
       setProgress(50);
       const data = await response.json();
       setProgress(90);
+      // console.log(data)
       setArticles(data.articles);
       setTotalResults(data.totalResults);
       setLoading(false);
@@ -29,6 +30,7 @@ export default function News({ country, category, apiKey, pageSize, setProgress 
   };
 
   useEffect(() => {
+    document.title = `NewsXpress —${props.category}`
     fetchNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
