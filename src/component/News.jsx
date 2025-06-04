@@ -30,7 +30,7 @@ export default function News({ country, category, apiKey, pageSize, setProgress 
   };
 
   useEffect(() => {
-    document.title = `NewsXpress —${props.category}`
+    document.title = `NewsXpress —${category}`
     fetchNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
